@@ -3,7 +3,8 @@ import pickle
 import numpy as np
 import pandas as pd
 from fastapi import FastAPI, UploadFile
-from keras.src.saving.saving_lib import load_model
+# from keras.src.saving.saving_lib import load_model
+from keras.models import load_model
 from fastapi.responses import RedirectResponse
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
@@ -14,7 +15,7 @@ from io import StringIO
 app = FastAPI()
 
 dataProcessor = DataProcessor()
-model = load_model('objects/air-quality-gru.keras')
+model = load_model('objects/air-quality-gru.h5', compile=False)
 with open('objects/target-std-scaler.pkl', 'rb') as file:
     std = pickle.load(file)
 @app.get("/", include_in_schema=False)
